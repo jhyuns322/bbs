@@ -206,7 +206,7 @@ public class ViewControllers {
 	@Scheduled(cron="0 0 0 * * ?")
 	public void deleteHit() {
 		try {
-			log.debug("============================"+hitService.deleteAllHit());
+			log.debug("매일 자정 hit table data 삭제" + hitService.deleteAllHit());
 		} catch (Exception e) {
 			return;
 		}
