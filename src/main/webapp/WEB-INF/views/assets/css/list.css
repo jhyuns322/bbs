@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+select {
+	padding: 3px;
+	border-radius: 3px;
+}
+
+.searchForm {
+	margin-bottom: 15px;
+}
+
+#joinForm input {
+	width: 80%;
+}

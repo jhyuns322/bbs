@@ -1,0 +1,51 @@
+@charset "UTF-8";
+
+/* 공통영역 */
+* {
+	padding: 0; 
+	}
+	
+html.body { 
+	height: 100%; 
+	}
+	
+header{ 
+	border-bottom: 1px solid grey; padding-bottom: 40px; 
+	}
+	
+input { 
+	text-indent: 10px; 
+	}
+	
+input::placeholder { 
+	font-size: 11px; 
+	}
+	
+a:link {
+	color: black; text-decoration: none;
+	}
+	
+a:hover {
+	color: grey; text-decoration: none;	
+	}
+
+.connect a:hover {
+	color: red; text-decoration: none;		
+}
+	
+.red .connect a:link {
+	color: red; text-decoration: none;	
+}
+
+
+.btn { 
+	padding: 3px 12px; font-size: 12px; 
+	}
+	
+.loginSection { 
+	text-align: center; margin: 30px 0 50px 0; 
+	}
+	
+.logout { 
+	margin-top: 10px;
+	 }

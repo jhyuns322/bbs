@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CommentMapper">
+
+	<resultMap id="comMap" type="com.son.bbs.model.Comment">
+		<result property="comno" column="comno" />
+		<result property="parent" column="parent" />
+		<result property="regdate" column="regdate" />
+		<result property="content" column="content" />
+		<result property="img" column="img" />
+		<result property="recommend" column="recommend" />
+		<result property="docno" column="docno" />
+		<result property="memno" column="memno" />
+	</resultMap>
+
+	<!-- 다중행 조회를 위한 기능 정의 -->
+	<select id="selectComList" parameterType="com.son.bbs.model.Comment" resultMap="comMap">
+		SELECT comno, parent, c.regdate, content, img, recommend, docno, c.memno, name
+		FROM comment c INNER JOIN bbs.member m ON c.memno = m.memno WHERE docno=#{docno}
+
+		ORDER BY comno DESC
+	</select>
+	
+	<!-- 데이터 저장을 위한 기능 정의 -->	
+	<insert id="insertComItem" parameterType="com.son.bbs.model.Comment" useGeneratedKeys="true" keyProperty="comno">
+		INSERT INTO comment (parent, regdate, content, img, recommend, docno, memno) 
+		VALUES (#{parent}, #{regdate}, #{content}, #{img}, #{recommend}, #{docno}, #{memno})
+	</insert>
+	
+	<!-- 데이터 수 조회를 위한 기능 정의 -->
+	<select id="selectComCount" parameterType="com.son.bbs.model.Comment" resultType="int">
+		SELECT COUNT(*) FROM comment WHERE docno=#{docno}
+	</select>
+	
+	<!-- 데이터 갱신을 위한 기능 정의 -->
+	<update id="upRecCount" parameterType="com.son.bbs.model.Comment">
+		UPDATE comment SET recommend = recommend + 1 WHERE comno=#{comno};
+	</update>
+
+	<update id="downRecCount" parameterType="com.son.bbs.model.Comment">
+		UPDATE comment SET recommend = recommend - 1 WHERE comno=#{comno};
+	</update>
+	
+	<!-- 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteCom" parameterType="com.son.bbs.model.Comment">
+		DELETE FROM comment WHERE comno=#{comno};
+	</delete>
+	
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="HitMapper">
+
+	<resultMap id="hitMap" type="com.son.bbs.model.Hit">
+		<result property="hitno" column="hitno" />
+		<result property="ip" column="ip" />
+		<result property="regdate" column="regdate" />
+		<result property="docno" column="docno" />
+	</resultMap>
+
+	<!-- 데이터 수 조회를 위한 기능 정의 -->
+	<select id="selectHitCount" parameterType="com.son.bbs.model.Hit" resultType="int">
+		SELECT COUNT(*) FROM hit WHERE ip=#{ip} AND docno=#{docno}
+	</select>
+		
+	<!-- 데이터 저장을 위한 기능 정의 -->	
+	<insert id="insertHitItem" parameterType="com.son.bbs.model.Hit" useGeneratedKeys="true" keyProperty="hitno">
+		INSERT INTO hit (ip, regdate, docno) VALUES (#{ip}, #{regdate}, #{docno})
+	</insert>
+	
+	<!-- 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteAll" parameterType="com.son.bbs.model.Hit">
+		TRUNCATE hit;
+	</delete>
+</mapper>
