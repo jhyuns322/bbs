@@ -21,59 +21,30 @@
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 	<div class="container">
-
-		<!-- 로그인/로그아웃/회원가입 -->	
-		<header class="loginSection">
-			<c:choose>
-				<c:when test="${empty sessionUserid}">
-					<form id="loginForm" method="post" action="${pageContext.request.contextPath}/login">
-						<div class="row">
-							<span class="col-md-9">
-								<span class="col-md-1"><label>ID</label></span>
-								<span class="col-md-3"><input type=text name=userid placeholder="ID = member"></span>
-								<span class="col-md-1"><label>P/W</label></span>
-								<span class="col-md-3"><input type=password name=password placeholder="P/W = 123qwe"></span>
-								<span class="col-md-1"><button type="submit" class="btn btn-primary">로그인</button></span>
-							</span>
-							<div class="col-md-3">
-								<span class="col-md-offset-2 col-md-1"><button id="open_modal_btn" type="button" class="btn btn-success">회원가입</button></span>
-							</div>
-						</div>
-					</form>
-				</c:when>
-				<c:otherwise>
-			<strong>${sessionName}</strong>님 접속 중
-			<div class="logout">
-				<button id="logoutBtn" type="button" class="btn btn-danger">로그아웃</button>
-			</div>
-				</c:otherwise>
-			</c:choose>
-		</header>
-
+	<%@ include file="./inc/header.jsp"%>
+	
 		<!-- 게시글 리스트 -->
 		<form method="get" action="${pageContext.request.contextPath}/list">
-			<div class="searchForm row">
-				<div class="col-md-offset-7 col-md-5">
-					<span class="col-md-3">
-						<select name="subKeyword">
-							<option value="">전체</option>
-							<option value="name" <c:if test="${subKeyword eq 'name'}"> selected</c:if>>작성자</option>
-							<option value="subject" <c:if test="${subKeyword eq 'subject'}"> selected</c:if>>제목</option>
-						</select>
-					</span>
-					<span class="col-md-6"><input type="search" name="keyword" value="${keyword}" /></span>
-					<span class="col-md-3"><button type="submit" class="btn btn-primary">검색</button></span>
+			<div class="searchForm col-xs-12 col-md-offset-7 col-md-5 text-center">
+				<div class="col-xs-2 col-md-3">
+					<select name="subKeyword">
+						<option value="">전체</option>
+						<option value="name" <c:if test="${subKeyword eq 'name'}"> selected</c:if>>작성자</option>
+						<option value="subject" <c:if test="${subKeyword eq 'subject'}"> selected</c:if>>제목</option>
+					</select>
 				</div>
+				<span class="col-xs-8 col-md-6"><input type="search" name="keyword" value="${keyword}" placeholder="검색어를 입력해 주세요."/></span>
+				<span class="col-xs-2 col-md-3"><button type="submit" class="btn btn-primary">검색</button></span>
 			</div>
 		</form>
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th class="col-md-1 text-center">번호</th>
-					<th class="col-md-5 text-center">제목</th>
-					<th class="col-md-2 text-center">작성자</th>
-					<th class="col-md-3 text-center">작성일</th>
-					<th class="col-md-1 text-center">조회</th>
+					<th class="col-md-1 visible-md visible-lg text-center">번호</th>
+					<th class="col-xs-5 col-md-5 text-center">제목</th>
+					<th class="col-xs-2 col-md-2 text-center">작성자</th>
+					<th class="col-xs-3 col-md-3 text-center">작성일</th>
+					<th class="col-xs-2 col-md-1 text-center">조회</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -84,15 +55,15 @@
 							<td class="text-center" colspan="5">조회된 결과가 없습니다.</td>
 						</tr>
 					</c:when>
+					
 					<c:otherwise>
 						<c:forEach var="doc" items="${docOutput}" varStatus="status">
-
 							<%-- 상세페이지로 이동하기 위한 URL --%>
 							<c:url value="view" var="viewUrl">
 								<c:param name="docno" value="${doc.docno}" />
 							</c:url>
 							<tr class="text-center">
-								<td>${doc.docno}</td>
+								<td class="visible-md visible-lg">${doc.docno}</td>
 									<c:choose>
 										<c:when test="${doc.comment > 0}">
 											<td><a href="${viewUrl}">${doc.subject}</a><span style="color:red;"> &#40;${doc.comment}&#41;</span></td>
@@ -110,9 +81,9 @@
 				</c:choose>
 			</tbody>
 		</table>
-		<span class="col-md-offset-11"><button type="button" onclick="location.href='write'" class="btn btn-primary">글 쓰기</button></span>
-		<div class="text-center">
+		<div class="col-xs-offset-10 col-md-offset-11"><button type="button" onclick="location.href='write'" class="btn btn-primary">글 쓰기</button></div>
 		
+		<div class="text-center">
 			<!-- 페이지네이션 -->
 			<ul class="pagination pagination-sm">
 				<!-- 이전 그룹 링크 -->
@@ -155,57 +126,11 @@
 				<li><a href="${nextPageUrl}" aria-label="Next"><span aria-hidden="true">&raquo;</span> </a></li>
 			</ul>
 		</div>
-	</div>
-
-	<!-- 회원가입 모달창 -->
-	<div class="modal fade" id="joinModal">
-		<div class="modal-dialog modal-l">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title">회원 가입</h4>
-				</div>
-				<form id="joinForm" class="form-horizontal" action="${pageContext.request.contextPath}/join">
-				<div class="modal-body">	
-					<div class="form-group">
-						<!-- 아이디 입력 -->
-						<span class="col-md-3"><label>아이디</label></span> 
-						<span class="col-md-7"><input type="text" id="userid" name="userid" maxlength="12" placeholder="아이디를 입력하세요."></span>
-						<!-- 아이디 중복 검사 버튼 -->
-						<span class="col-md-2"><button type="button" id="useridChk" class="btn btn-primary">중복검사</button></span>
-					</div>
-					<br>					
-					<div class="form-group">
-						<!-- 비밀번호 입력 -->
-						<span class="col-md-3"><label>비밀번호</label></span> 
-						<span class="col-md-7"><input type="password" name="password" maxlength="16" placeholder="비밀번호를 입력하세요."></span>
-					</div>
-					<div class="form-group">
-						<!-- 비밀번호 확인 입력 -->
-						<span class="col-md-3"><label>비밀번호 확인</label></span>
-						<span class="col-md-7"><input type="password" name="passwordChk" maxlength="16" placeholder="비밀번호를 한 번 더 입력하세요."></span>
-					</div>
-					<br>
-					<div class="form-group">
-						<!-- 닉네임 입력 -->
-						<span class="col-md-3"><label>닉네임</label></span>
-						<span class="col-md-7"><input type="text" id="name" name="name" maxlength="8" placeholder="닉네임을 입력하세요."></span>
-						<!-- 닉네임 중복 검사 버튼 -->
-						<span class="col-md-2"><button type="button" id="nameChk" class="btn btn-primary">중복검사</button></span>
-						</div>	
-					</div>
-				<div class="modal-footer">
-					<!-- 가입 완료 버튼 -->
-					<span class="col-md-offset-10 col-md-2"><button type="submit" class="btn btn-success">가입 완료</button></span>
-				</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
 	
+	<%@ include file="./inc/join.jsp"%>
+	</div>
+
+
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>

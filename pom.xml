@@ -18,6 +18,7 @@
 
 	<!-- 저장소 주소 추가 -->
 	<repositories>
+
 		<!-- UserAgent 모듈 -->
 		<repository>
 			<id>clojars</id>

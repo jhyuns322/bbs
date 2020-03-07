@@ -40,7 +40,7 @@
 
 	<!-- RegexHelper 주입 설정 -->
 	<bean id="regexHelper" class="com.son.bbs.helper.RegexHelper" />
-		
+
 	<!-- ======= DATABASE 연동 설정 ======= -->
 	<!-- JDBC 객체 생성 -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">

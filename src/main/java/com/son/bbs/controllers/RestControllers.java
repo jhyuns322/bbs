@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -448,5 +447,22 @@ public class RestControllers {
 		Map<String, Object> map = new HashMap<String, Object>();
 		return webHelper.getJsonData(map);
 	}
+
+/* ***************************** 이미지 업로드 ***************************** */
+	
+	/** 이미지 업로드 */	
+//	@RequestMapping(value = "imgUpload", method = RequestMethod.POST)
+//	public Map<String, Object> imgUpload(@RequestParam("file") MultipartFile multipartFile) {
+//		
+//		String originalFileName = multipartFile.getOriginalFilename();
+//		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+//		
+//		System.out.println(originalFileName);
+//		System.out.println(extension);
+//
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("item", originalFileName);
+//		return webHelper.getJsonData(map);
+//	}
 
 }
