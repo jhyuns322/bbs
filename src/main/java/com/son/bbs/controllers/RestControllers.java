@@ -372,7 +372,7 @@ public class RestControllers {
 
 		int comment = 0;
 		int hits = 0;
-		System.out.println("subject=" +subject);
+		System.out.println("subject=" + subject);
 		// 필수 항목에 대한 유효성 검사
 		if (subject == null || subject.equals("")) {
 			return webHelper.getJsonWarning("게시글 제목을 입력하세요.");
@@ -466,10 +466,18 @@ public class RestControllers {
 			return webHelper.getJsonWarning("이미지 업로드 실패");
 		}
 		
+		String uploadRoot = "";
+		
+		// 운영체재 확인 후 경로지정
+		String os = System.getProperty("os.name").toLowerCase();
+		if (os.contains("linux")) { 
+			uploadRoot = "usr/local/tomcat8/webapps/bbs/WEB-INF/views/assets/img/";
+		} else {
+			uploadRoot = "C:/Users/Jonghyun/Desktop/jh/workspace_portfolio_sub/bbs/src/main/webapp/WEB-INF/views/assets/img/";
+		}
+
 		// 원본파일명 불러오기
 		String fileOriginName = file.getOriginalFilename();
-		// 업로드 경로 지정
-		String uploadRoot = "C:/Users/Jonghyun/Desktop/jh/workspace_portfolio_sub/bbs/src/main/webapp/WEB-INF/views/assets/img/";
 		// 확장자 불러오기
 		String extension = fileOriginName.substring(fileOriginName.lastIndexOf("."));
 		
