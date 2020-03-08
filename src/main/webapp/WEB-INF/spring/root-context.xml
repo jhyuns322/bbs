@@ -34,7 +34,7 @@
 
 	<!-- WebHelper 주입 설정 -->
 	<bean id="webHelper" class="com.son.bbs.helper.WebHelper">
-		<property name="encType" value="#{config['encType']}" />
+		<property name="encType" value="#{config['encType']}" />	
 		<property name="domain" value="#{config['domain']}" />
 	</bean>
 

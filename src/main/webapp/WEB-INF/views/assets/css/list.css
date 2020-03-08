@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+input {
+	text-indent: 10px;
+}
+
 select {
 	padding: 3px;
 	border-radius: 3px;
@@ -12,3 +16,4 @@ select {
 #joinForm input {
 	width: 80%;
 }
+
