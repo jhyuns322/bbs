@@ -21,6 +21,9 @@
 	<resources mapping="/assets/**"
 		location="/WEB-INF/views/assets/" />
 
+	<resources mapping="/img/**"
+		location="/usr/local/tomcat8/webapps/img/" />
+		
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 

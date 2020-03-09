@@ -20,7 +20,7 @@
 							<div class="col-xs-12 col-md-1"><button type="submit" class="login btn btn-primary">로그인</button></div>
 						</div>
 						<div class="col-xs-3 col-xs-offset-9 col-md-2 col-md-offset-1">
-							<div class="col-md-1"><button id="open_modal_btn" type="button" class="btn btn-success">회원가입</button></div>
+							<div class="col-md-1"><button id="open_modal_btn" type="button" class="joinBtn btn btn-success">회원가입</button></div>
 						</div>
 					</form>
 				</c:when>

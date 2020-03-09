@@ -2,18 +2,26 @@
 
 input {
 	text-indent: 10px;
-}
-
-select {
-	padding: 3px;
-	border-radius: 3px;
-}
+	}
 
 .searchForm {
 	margin-bottom: 15px;
-}
+	}
 
 #joinForm input {
 	width: 80%;
+	}
+
+@media(min-width:769px) {
+	select {
+		padding: 3px;
+		border-radius: 3px;
+	}
 }
 
+@media(max-width:768px) {
+	select {
+		padding: 2px 0;
+		border-radius: 3px;
+	}
+}

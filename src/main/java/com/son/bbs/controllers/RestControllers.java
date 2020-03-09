@@ -466,25 +466,17 @@ public class RestControllers {
 			return webHelper.getJsonWarning("이미지 업로드 실패");
 		}
 		
-		String uploadRoot = "";
-		
-		// 운영체재 확인 후 경로지정
-		String os = System.getProperty("os.name").toLowerCase();
-		if (os.contains("linux")) { 
-			uploadRoot = "usr/local/tomcat8/webapps/bbs/WEB-INF/views/assets/img/";
-		} else {
-			uploadRoot = "C:/Users/Jonghyun/Desktop/jh/workspace_portfolio_sub/bbs/src/main/webapp/WEB-INF/views/assets/img/";
-		}
-
+		// 업로드 폴더 지정
+		String uploadRoot = "/usr/local/tomcat8/webapps/img/bbs/";
 		// 원본파일명 불러오기
 		String fileOriginName = file.getOriginalFilename();
 		// 확장자 불러오기
 		String extension = fileOriginName.substring(fileOriginName.lastIndexOf("."));
 		
 		/* 새 파일명 생성 */
-		// 난수 여섯 자리 생성 
+		// 난수 여섯 자리 생성  (100000~999999)
 		Random ran = new Random();
-		String fileName = Integer.toString(ran.nextInt(1000000) + 100000);
+		String fileName = Integer.toString(ran.nextInt(900000) + 100000);
 		// 오늘 날짜와 시간을 String으로 변환
 		Date date = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyMMddHHmmss");
@@ -500,7 +492,7 @@ public class RestControllers {
 			FileUtils.copyInputStreamToFile(is, targetFile);
 			is.close();
 			
-			output = "/assets/img/" + newFileName;
+			output = "/img/bbs/" + newFileName;
 		} catch (Exception e) {
 			return webHelper.getJsonError(e.getLocalizedMessage());
 		}
